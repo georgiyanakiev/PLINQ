@@ -11,7 +11,7 @@ namespace PLINQ
          public static void Main(string[] args)
         {
             var num = Enumerable.Range(0, 10);
-            var pResult = num.AsParallel()
+            var pResult = num.AsParallel().AsOrdered()
                 .Where(i => i % 2 == 0)
                 .ToArray();
 
