@@ -8,7 +8,7 @@ namespace PLINQ
 {
    public static class Program1
     {
-         public static void Main()
+         public static void Main(string[] args)
         {
             var num = Enumerable.Range(0, 100);
             var pResult = num.AsParallel()
