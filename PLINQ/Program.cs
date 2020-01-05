@@ -8,17 +8,33 @@ namespace PLINQ
 {
    public static class Program1
     {
-         public static void Main(string[] args)
+         public static void Main()
         {
-            var num = Enumerable.Range(0, 10);
-            var pResult = num.AsParallel().AsOrdered()
-                .Where(i => i % 2 == 0)
-                .ToArray();
+            var num = Enumerable.Range(0, 20);
+            try
+            {
+                var pResult = num.AsParallel()
+                    .Where(i => CheckIfIsEven(i));
 
-            foreach (int i in pResult)
-                Console.WriteLine(i);
-            Console.ReadLine();
 
+                //foreach (int i in pResult.Take(5))
+                //    Console.WriteLine(i);
+                //Console.ReadLine();
+                pResult.ForAll(e => Console.WriteLine(e));
+                Console.ReadLine();
+            }
+            catch(AggregateException e)
+            {
+                Console.WriteLine("There are {0} exceptions", e.InnerExceptions.Count);
+                
+            }
+
+        }
+
+        public static bool CheckIfIsEven(int i)
+        {
+            if (i % 10 == 0) throw new ArgumentException("i");
+            return i % 2 == 0;
         }
     }
 }
